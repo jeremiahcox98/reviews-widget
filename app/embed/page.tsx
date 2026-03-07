@@ -23,7 +23,7 @@ export default function EmbedPage() {
       {/* 80% black overlay */}
       <div className="absolute inset-0 bg-black/80" aria-hidden />
       {/* Content above overlay */}
-      <div className="relative z-10 py-6 pb-10 pt-20">
+      <div className="relative z-10 py-6 pb-15 pt-15">
         <h2
           className={`mb-6 text-center text-[40px] font-medium leading-tight text-white md:text-[50px] ${playfair.className}`}
         >
