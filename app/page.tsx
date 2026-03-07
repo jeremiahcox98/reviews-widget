@@ -1,3 +1,4 @@
+import { AuthStatus } from "@/components/AuthStatus";
 import { ConnectGoogle } from "@/components/ConnectGoogle";
 import { DownloadReviewsJson } from "@/components/DownloadReviewsJson";
 import { EmbedPreview } from "@/components/EmbedPreview";
@@ -13,6 +14,7 @@ export default function Home() {
       </div>
       <div className="w-full max-w-4xl space-y-6">
         <ConnectGoogle />
+        <AuthStatus />
         <DownloadReviewsJson />
         <EmbedPreview />
       </div>
