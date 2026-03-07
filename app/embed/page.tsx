@@ -1,4 +1,10 @@
+import { Playfair_Display } from "next/font/google";
 import { ReviewsSection } from "@/components/ReviewsSection";
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export const metadata = {
   title: "Reviews",
@@ -18,6 +24,11 @@ export default function EmbedPage() {
       <div className="absolute inset-0 bg-black/80" aria-hidden />
       {/* Content above overlay */}
       <div className="relative z-10 py-6">
+        <h2
+          className={`mb-6 text-center text-[40px] font-medium leading-tight text-white md:text-[50px] ${playfair.className}`}
+        >
+          Don&apos;t Take Our Word For It
+        </h2>
         <ReviewsSection />
       </div>
     </div>
