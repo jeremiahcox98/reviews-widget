@@ -89,7 +89,7 @@ This app is set up to deploy on **Cloudflare Pages** (via the OpenNext adapter a
    Add the same redirect URI in Google Cloud Console for your production domain:  
    `https://<your-pages-domain>/api/auth/callback/google`
 
-### Deploy
+### Deploy from your machine
 
 From the project root:
 
@@ -97,7 +97,26 @@ From the project root:
 npm run deploy
 ```
 
-This builds the Next.js app for Cloudflare and deploys it. Your Pages/Worker URL will be shown in the output (e.g. `https://reviews.<your-subdomain>.workers.dev`).
+This builds the Next.js app for Cloudflare and deploys it. Your Worker URL will be shown (e.g. `https://reviews.<your-subdomain>.workers.dev`).
+
+### Connect GitHub (auto-deploy on push)
+
+To have Cloudflare build and deploy whenever you push to GitHub:
+
+1. In the [Cloudflare dashboard](https://dash.cloudflare.com) go to **Workers & Pages** → **Create application**.
+2. Choose **Create Worker** (not “Create Page”). This app uses OpenNext, which deploys as a Worker. You still get a normal URL (e.g. `reviews.<your-subdomain>.workers.dev`) and can add a **custom domain** in Settings, same as with Pages.
+3. Select **Connect to Git** → your GitHub account → the **reviews** repo. Pick the branch to deploy (e.g. `main`).
+4. **Build settings** (Settings → Build):
+   - **Build command:** leave empty.
+   - **Deploy command:** `npm run deploy`
+5. **Environment variables** (Settings → Variables and secrets): add:
+   - `GOOGLE_CLIENT_ID`
+   - `GOOGLE_CLIENT_SECRET`
+   - `REVIEWS_API_URL` (public URL of your reviews API in production)
+6. In [Google Cloud Console](https://console.cloud.google.com/apis/credentials), add this Authorized redirect URI:  
+   `https://<your-worker-domain>/api/auth/callback/google`
+
+After you save, the first build runs. Every push to that branch will trigger a new build and deploy.
 
 ### Optional: local Cloudflare preview
 
