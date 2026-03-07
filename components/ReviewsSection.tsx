@@ -36,7 +36,7 @@ export function ReviewsSection() {
         }
       })
       .catch(() => {
-        setError("Could not load reviews. Is the reviews API running? (npm run api)");
+        setError("Could not load reviews. Try reconnecting with Google or retry.");
         setReviews(dummyReviews);
       })
       .finally(() => setLoading(false));
@@ -59,22 +59,15 @@ export function ReviewsSection() {
       {error && (
         <div className="mx-auto max-w-xl rounded-lg border border-amber-500/50 bg-amber-500/10 px-4 py-3 text-center text-sm text-amber-200">
           {error}
-          {error.includes("reviews API") && (
-            <p className="mt-2 text-xs">
-              In another terminal run: <code className="rounded bg-white/10 px-1">npm run api</code>
-            </p>
-          )}
-          {(error.includes("403") || error.includes("has not been used") || error.includes("disabled")) && (
-            <p className="mt-2">
-              <button
-                type="button"
-                onClick={() => fetchReviews()}
-                className="rounded bg-amber-500/30 px-3 py-1.5 text-xs font-medium hover:bg-amber-500/50"
-              >
-                Retry (check if API propagated)
-              </button>
-            </p>
-          )}
+          <p className="mt-2">
+            <button
+              type="button"
+              onClick={() => fetchReviews()}
+              className="rounded bg-amber-500/30 px-3 py-1.5 text-xs font-medium hover:bg-amber-500/50"
+            >
+              Retry
+            </button>
+          </p>
         </div>
       )}
       <ReviewsMarquee

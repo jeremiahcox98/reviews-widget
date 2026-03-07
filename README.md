@@ -84,7 +84,7 @@ This app is set up to deploy on **Cloudflare Pages** (via the OpenNext adapter a
 2. **Set environment variables** in the [Cloudflare dashboard](https://dash.cloudflare.com) → Workers & Pages → your project → Settings → Variables (or via `wrangler secret`):
    - `GOOGLE_CLIENT_ID` – from Google Cloud Console (OAuth 2.0 Client ID)
    - `GOOGLE_CLIENT_SECRET` – from Google Cloud Console
-   - `REVIEWS_API_URL` – URL of your reviews API (e.g. `https://your-reviews-api.example.com`). For local dev this is `http://localhost:3001`; in production you must host the `reviews-api` somewhere (e.g. a separate Worker, or another host) and set this to that URL.
+   - ~~`REVIEWS_API_URL`~~ – Not needed. The app fetches reviews from Google’s APIs directly (no separate reviews-api server in production).
 
    Add the same redirect URI in Google Cloud Console for your production domain:  
    `https://<your-pages-domain>/api/auth/callback/google`
@@ -112,7 +112,7 @@ To have Cloudflare build and deploy whenever you push to GitHub:
 5. **Environment variables** (Settings → Variables and secrets): add:
    - `GOOGLE_CLIENT_ID`
    - `GOOGLE_CLIENT_SECRET`
-   - `REVIEWS_API_URL` (public URL of your reviews API in production)
+   - (No `REVIEWS_API_URL` – reviews are fetched from Google directly.)
 6. In [Google Cloud Console](https://console.cloud.google.com/apis/credentials), add this Authorized redirect URI:  
    `https://<your-worker-domain>/api/auth/callback/google`
 
