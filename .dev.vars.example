@@ -1,0 +1,3 @@
+# Copy to .dev.vars for local Cloudflare preview (npm run preview).
+# Your Next.js env (e.g. from .env.local) can be loaded by setting:
+NEXTJS_ENV=development
