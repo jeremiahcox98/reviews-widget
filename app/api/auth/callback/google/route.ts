@@ -52,10 +52,11 @@ export async function GET(request: NextRequest) {
   }
 
   const response = NextResponse.redirect(new URL("/embed", request.url));
+  const isProduction = process.env.NODE_ENV === "production";
   response.cookies.set(COOKIE_NAME, refreshToken, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
+    secure: isProduction,
+    sameSite: isProduction ? "none" : "lax",
     maxAge: COOKIE_MAX_AGE,
     path: "/",
   });
