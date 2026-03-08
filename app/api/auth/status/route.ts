@@ -1,20 +1,18 @@
+import { getRefreshToken } from "@/lib/refresh-token-store";
 import { NextRequest, NextResponse } from "next/server";
-
-const REFRESH_TOKEN_COOKIE = "reviews_refresh_token";
 
 /**
  * GET /api/auth/status
- * Returns whether the session cookie is present and if token refresh works.
- * Use this to debug "Session expired" (e.g. open in same tab as embed or curl with -v).
+ * Returns whether a refresh token is available (KV or cookie) and if token refresh works.
  */
 export async function GET(request: NextRequest) {
-  const refreshToken = request.cookies.get(REFRESH_TOKEN_COOKIE)?.value;
+  const refreshToken = await getRefreshToken(request);
 
   if (!refreshToken) {
     return NextResponse.json({
       hasCookie: false,
       refreshOk: false,
-      error: "No refresh token cookie. Connect with Google on this origin first.",
+      error: "No refresh token (KV or cookie). Connect with Google once on the widget site.",
     });
   }
 
@@ -24,7 +22,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       hasCookie: true,
       refreshOk: false,
-      error: "Server OAuth not configured (GOOGLE_CLIENT_ID/SECRET).",
+      error: "Server OAuth not configured (GOOGLE_CLIENT_ID/SECRET in Worker env).",
     });
   }
 

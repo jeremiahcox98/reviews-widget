@@ -81,13 +81,17 @@ This app is set up to deploy on **Cloudflare Pages** (via the OpenNext adapter a
    npx wrangler login
    ```
 
-2. **Set environment variables** in the [Cloudflare dashboard](https://dash.cloudflare.com) → Workers & Pages → your project → Settings → Variables (or via `wrangler secret`):
+2. **Create a KV namespace** so the app can store the Google refresh token once; then every visitor sees reviews without logging in.
+   - In the dashboard: **Workers & Pages** → **KV** → **Create namespace** → name it e.g. `REFRESH_TOKEN_STORE` → Create. Copy the **Namespace ID**.
+   - Or via CLI: `npx wrangler kv namespace create REFRESH_TOKEN_STORE` (copy the id from the output.)
+   - In this repo, open `wrangler.jsonc` and replace `REPLACE_WITH_YOUR_KV_NAMESPACE_ID` with that id (inside the `kv_namespaces[0].id` field).
+
+3. **Set environment variables** in the [Cloudflare dashboard](https://dash.cloudflare.com) → Workers & Pages → your project → Settings → Variables and secrets:
    - `GOOGLE_CLIENT_ID` – from Google Cloud Console (OAuth 2.0 Client ID)
    - `GOOGLE_CLIENT_SECRET` – from Google Cloud Console
-   - ~~`REVIEWS_API_URL`~~ – Not needed. The app fetches reviews from Google’s APIs directly (no separate reviews-api server in production).
 
-   Add the same redirect URI in Google Cloud Console for your production domain:  
-   `https://<your-pages-domain>/api/auth/callback/google`
+   Add this Authorized redirect URI in Google Cloud Console for your production domain:  
+   `https://<your-worker-domain>/api/auth/callback/google`
 
 ### Deploy from your machine
 
@@ -109,11 +113,9 @@ To have Cloudflare build and deploy whenever you push to GitHub:
 4. **Build settings** (Settings → Build):
    - **Build command:** leave empty.
    - **Deploy command:** `npm run deploy`
-5. **Environment variables** (Settings → Variables and secrets): add:
-   - `GOOGLE_CLIENT_ID`
-   - `GOOGLE_CLIENT_SECRET`
-   - (No `REVIEWS_API_URL` – reviews are fetched from Google directly.)
-6. In [Google Cloud Console](https://console.cloud.google.com/apis/credentials), add this Authorized redirect URI:  
+5. **KV namespace:** Create one (Workers & Pages → KV → Create namespace), copy its id, and in the repo set `wrangler.jsonc` → `kv_namespaces[0].id` to that id. This stores the Google token once so all visitors see reviews.
+6. **Environment variables** (Settings → Variables and secrets): add `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`.
+7. In [Google Cloud Console](https://console.cloud.google.com/apis/credentials), add this Authorized redirect URI:  
    `https://<your-worker-domain>/api/auth/callback/google`
 
 After you save, the first build runs. Every push to that branch will trigger a new build and deploy.

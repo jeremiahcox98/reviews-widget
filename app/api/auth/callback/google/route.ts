@@ -1,3 +1,4 @@
+import { setRefreshTokenInKv } from "@/lib/refresh-token-store";
 import { NextRequest, NextResponse } from "next/server";
 
 const COOKIE_NAME = "reviews_refresh_token";
@@ -50,6 +51,9 @@ export async function GET(request: NextRequest) {
   if (!refreshToken) {
     return NextResponse.redirect(new URL("/?error=no_refresh_token", request.url));
   }
+
+  // Store in KV so all visitors see reviews without logging in (embed works forever)
+  await setRefreshTokenInKv(refreshToken);
 
   const response = NextResponse.redirect(new URL("/embed", request.url));
   const isProduction = process.env.NODE_ENV === "production";

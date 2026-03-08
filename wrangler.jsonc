@@ -1,20 +1,31 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "main": ".open-next/worker.js",
-  "name": "reviews-widget",
-  "compatibility_date": "2024-12-30",
-  "compatibility_flags": [
-    "nodejs_compat",
-    "global_fetch_strictly_public"
-  ],
-  "assets": {
-    "directory": ".open-next/assets",
-    "binding": "ASSETS"
-  },
-  "services": [
-    {
-      "binding": "WORKER_SELF_REFERENCE",
-      "service": "reviews-widget"
-    }
-  ]
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"main": ".open-next/worker.js",
+	"name": "reviews-widget",
+	"compatibility_date": "2024-12-30",
+	"compatibility_flags": [
+		"nodejs_compat",
+		"global_fetch_strictly_public"
+	],
+	"assets": {
+		"directory": ".open-next/assets",
+		"binding": "ASSETS"
+	},
+	"services": [
+		{
+			"binding": "WORKER_SELF_REFERENCE",
+			"service": "reviews-widget"
+		}
+	],
+	"kv_namespaces": [
+		{
+			"binding": "REFRESH_TOKEN_KV",
+			"id": "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+		},
+		{
+			"binding": "REFRESH_TOKEN_KV",
+			"id": "10d9489919194888b805e74bed1111ef",
+			"remote": true
+		}
+	]
 }

@@ -1,6 +1,5 @@
+import { getRefreshToken } from "@/lib/refresh-token-store";
 import { NextRequest, NextResponse } from "next/server";
-
-const REFRESH_TOKEN_COOKIE = "reviews_refresh_token";
 
 const ACCOUNT_MGMT_BASE = "https://mybusinessaccountmanagement.googleapis.com/v1";
 const BUSINESS_INFO_BASE = "https://mybusinessbusinessinformation.googleapis.com/v1";
@@ -165,7 +164,7 @@ export async function GET(request: NextRequest) {
   if (auth?.startsWith("Bearer ")) {
     accessToken = auth.slice(7);
   } else {
-    const refreshToken = request.cookies.get(REFRESH_TOKEN_COOKIE)?.value;
+    const refreshToken = await getRefreshToken(request);
     if (refreshToken) {
       try {
         accessToken = await getAccessTokenFromRefresh(refreshToken);
