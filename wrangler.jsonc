@@ -20,12 +20,7 @@
 	"kv_namespaces": [
 		{
 			"binding": "REFRESH_TOKEN_KV",
-			"id": "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
-		},
-		{
-			"binding": "REFRESH_TOKEN_KV",
-			"id": "10d9489919194888b805e74bed1111ef",
-			"remote": true
+			"id": "10d9489919194888b805e74bed1111ef"
 		}
 	]
 }
