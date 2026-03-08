@@ -25,7 +25,7 @@ export default function EmbedPage() {
       {/* Content above overlay */}
       <div className="relative z-10 py-6 pb-15 pt-15">
         <h2
-          className={`mb-6 text-center text-[40px] font-medium leading-tight text-white md:text-[50px] ${playfair.className}`}
+          className={`mb-6 px-5 text-center text-[34px] font-medium leading-tight text-white md:px-0 md:text-[50px] ${playfair.className}`}
         >
           Don&apos;t Just Take Our Word For It
         </h2>
