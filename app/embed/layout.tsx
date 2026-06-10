@@ -6,7 +6,10 @@ export default function EmbedLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-full w-full overflow-x-hidden" data-embed-widget>
+    <div
+      className="min-h-full w-full max-w-full overflow-x-hidden overscroll-x-none"
+      data-embed-widget
+    >
       {children}
       <EmbedHeightReporter />
     </div>

@@ -13,7 +13,7 @@ export function ReviewsSection() {
   const fetchReviews = useCallback(() => {
     setError(null);
     setLoading(true);
-    fetch("/api/reviews", { credentials: "include" })
+    fetch("/api/reviews/cached")
       .then(async (res) => {
         const data = await res.json().catch(() => ({}));
         if (!res.ok) {
@@ -25,7 +25,7 @@ export function ReviewsSection() {
         if (data.reviews && Array.isArray(data.reviews)) {
           if (data.reviews.length > 0) {
             setReviews(data.reviews);
-            setError(null);
+            setError(data.syncError || null);
           } else {
             setError("No reviews yet for this account.");
             setReviews(dummyReviews);
@@ -36,7 +36,7 @@ export function ReviewsSection() {
         }
       })
       .catch(() => {
-        setError("Could not load reviews. Try reconnecting with Google or retry.");
+        setError("Could not load reviews. Try again in a moment.");
         setReviews(dummyReviews);
       })
       .finally(() => setLoading(false));
@@ -48,7 +48,7 @@ export function ReviewsSection() {
 
   if (loading && reviews === dummyReviews) {
     return (
-      <div className="flex min-h-[200px] items-center justify-center text-white/60">
+      <div className="embed-loading flex min-h-[200px] items-center justify-center text-white/60">
         Loading reviews…
       </div>
     );

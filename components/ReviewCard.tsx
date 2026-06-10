@@ -9,11 +9,7 @@ function Stars({ rating }: { rating: number }) {
       {[1, 2, 3, 4, 5].map((star) => (
         <span
           key={star}
-          className={
-            star <= rating
-              ? "text-amber-400"
-              : "text-white/25"
-          }
+          className={star <= rating ? "text-[#e7b53d]" : "text-white/25"}
         >
           ★
         </span>
@@ -29,9 +25,6 @@ function truncateComment(text: string, maxLength: number = MAX_COMMENT_LENGTH): 
   if (trimmed.length <= maxLength) return trimmed;
   return trimmed.slice(0, maxLength).trimEnd() + "…";
 }
-
-const moreButtonClass =
-  "inline text-[15px] font-normal text-sky-300 hover:text-sky-200 hover:underline focus:outline-none focus:underline cursor-pointer";
 
 function getInitials(name: string): string {
   const trimmed = (name || "").trim();
@@ -53,14 +46,16 @@ export function ReviewCard({ review }: { review: Review }) {
 
   const authorName = review.authorName?.trim() || "Anonymous";
   const displayName = review.authorHandle
-    ? (review.authorHandle.startsWith("@") ? review.authorHandle : `@${review.authorHandle}`)
+    ? review.authorHandle.startsWith("@")
+      ? review.authorHandle
+      : `@${review.authorHandle}`
     : authorName;
   const initials = getInitials(authorName);
   const [imgLoaded, setImgLoaded] = useState(false);
   const href = review.url?.trim() || undefined;
 
   const className =
-    "flex min-w-[240px] max-w-[260px] flex-shrink-0 flex-col gap-3 rounded-xl border border-white/10 bg-white/[0.08] p-4 text-left shadow-lg backdrop-blur-xl transition-opacity hover:opacity-90 md:min-w-[280px] md:max-w-[320px] md:gap-4 md:p-5";
+    "embed-review-card flex min-w-[240px] max-w-[260px] flex-shrink-0 flex-col gap-3 rounded-[14px] border border-white/12 bg-white/[0.07] p-4 text-left shadow-lg backdrop-blur-xl transition-opacity hover:opacity-90 md:min-w-[280px] md:max-w-[320px] md:gap-4 md:p-5";
 
   const onMoreClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -69,44 +64,42 @@ export function ReviewCard({ review }: { review: Review }) {
   };
 
   const reviewBody = (
-    <>
-      <p className="text-[15px] leading-relaxed text-white/95">
-        {expanded ? comment : truncateComment(comment)}
-        {isLong && !expanded && (
-          <>
-            {" "}
-            <button
-              type="button"
-              onClick={onMoreClick}
-              className={moreButtonClass}
-              aria-label="Show full review"
-            >
-              More
-            </button>
-          </>
-        )}
-        {isLong && expanded && (
-          <>
-            {" "}
-            <button
-              type="button"
-              onClick={onMoreClick}
-              className={moreButtonClass}
-              aria-label="Show less"
-            >
-              Less
-            </button>
-          </>
-        )}
-      </p>
-    </>
+    <p className="embed-review-text text-white/95">
+      {expanded ? comment : truncateComment(comment)}
+      {isLong && !expanded && (
+        <>
+          {" "}
+          <button
+            type="button"
+            onClick={onMoreClick}
+            className="embed-review-more hover:underline focus:outline-none focus:underline cursor-pointer"
+            aria-label="Show full review"
+          >
+            More
+          </button>
+        </>
+      )}
+      {isLong && expanded && (
+        <>
+          {" "}
+          <button
+            type="button"
+            onClick={onMoreClick}
+            className="embed-review-more hover:underline focus:outline-none focus:underline cursor-pointer"
+            aria-label="Show less"
+          >
+            Less
+          </button>
+        </>
+      )}
+    </p>
   );
 
   const avatarBlock = (
     <div className="flex items-center gap-3">
-      <div className="relative flex h-10 w-10 flex-shrink-0 overflow-hidden rounded-full border-2 border-white/20 bg-zinc-700">
+      <div className="relative flex h-11 w-11 flex-shrink-0 overflow-hidden rounded-full border-2 border-white/20 bg-[#13283a]">
         <span
-          className="absolute inset-0 flex items-center justify-center text-sm font-semibold text-white"
+          className="embed-review-author absolute inset-0 flex items-center justify-center text-sm text-white"
           aria-hidden
           style={{ zIndex: imgLoaded ? 0 : 1 }}
         >
@@ -124,7 +117,10 @@ export function ReviewCard({ review }: { review: Review }) {
           />
         )}
       </div>
-      <span className="text-sm font-medium text-white/90">{displayName}</span>
+      <div>
+        <span className="embed-review-author block text-white/92">{displayName}</span>
+        <span className="embed-review-meta">Posted on Google</span>
+      </div>
     </div>
   );
 

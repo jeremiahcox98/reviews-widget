@@ -1,9 +1,19 @@
-import { Playfair_Display } from "next/font/google";
+import { Archivo, Hanken_Grotesk } from "next/font/google";
 import { ReviewsSection } from "@/components/ReviewsSection";
+import "./embed.css";
 
-const playfair = Playfair_Display({
+const archivo = Archivo({
   subsets: ["latin"],
   display: "swap",
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-archivo",
+});
+
+const hanken = Hanken_Grotesk({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-hanken",
 });
 
 export const metadata = {
@@ -13,23 +23,36 @@ export const metadata = {
 
 export default function EmbedPage() {
   return (
-    <div className="relative min-h-full w-full">
-      {/* Background image */}
+    <div
+      className={`embed-page relative min-h-full w-full max-w-full overflow-x-hidden ${archivo.variable} ${hanken.variable}`}
+    >
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url(/background.png)" }}
+        style={{ backgroundImage: "url(/tpi-background.jpg)" }}
         aria-hidden
       />
-      {/* 80% black overlay */}
-      <div className="absolute inset-0 bg-black/80" aria-hidden />
-      {/* Content above overlay */}
-      <div className="relative z-10 py-6 pb-15 pt-15">
-        <h2
-          className={`mb-6 px-5 text-center text-[34px] font-medium leading-tight text-white md:px-0 md:text-[50px] ${playfair.className}`}
-        >
-          Don&apos;t Just Take Our Word For It
-        </h2>
-        <ReviewsSection />
+      <div className="absolute inset-0 bg-[#0a1520]/72" aria-hidden />
+
+      <div className="relative z-10 overflow-x-hidden">
+        <header className="embed-head">
+          <p className="embed-trust">
+            <span className="embed-trust__stars" aria-hidden>
+              ★★★★★
+            </span>
+            Rated 5.0 <span className="embed-trust__sep">·</span> TPI Certified{" "}
+            <span className="embed-trust__sep">·</span> Franklin, TN
+          </p>
+          <p className="embed-eyebrow">Real Results</p>
+          <h2 className="embed-title">Golfers Who Move &amp; Play Better</h2>
+          <p className="embed-lead">
+            Real Google reviews from golfers who&apos;ve completed the TPI screen and personalized
+            plan at Mason Chiropractic.
+          </p>
+        </header>
+
+        <div className="embed-marquee">
+          <ReviewsSection />
+        </div>
       </div>
     </div>
   );

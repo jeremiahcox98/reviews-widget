@@ -1,4 +1,5 @@
 import { setRefreshTokenInKv } from "@/lib/refresh-token-store";
+import { syncReviews } from "@/lib/sync-reviews";
 import { NextRequest, NextResponse } from "next/server";
 
 const COOKIE_NAME = "reviews_refresh_token";
@@ -54,6 +55,13 @@ export async function GET(request: NextRequest) {
 
   // Store in KV so all visitors see reviews without logging in (embed works forever)
   await setRefreshTokenInKv(refreshToken);
+
+  // Prime the reviews cache immediately after connecting
+  try {
+    await syncReviews(request);
+  } catch (err) {
+    console.error("Initial reviews sync failed after OAuth:", err);
+  }
 
   const response = NextResponse.redirect(new URL("/embed", request.url));
   const isProduction = process.env.NODE_ENV === "production";
