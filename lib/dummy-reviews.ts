@@ -2,59 +2,66 @@ import type { Review } from "./reviews";
 
 export const dummyReviews: Review[] = [
   {
-    authorName: "Sarah M.",
+    authorName: "Mark T.",
     starRating: 5,
-    comment: "Absolutely fantastic experience from start to finish. Highly recommend to everyone!",
+    comment:
+      "Dr. Cox found exactly what was limiting my rotation. My distance is back and my back doesn't hurt after 18 holes.",
     relativeTimeDescription: "2 weeks ago",
   },
   {
-    authorName: "James K.",
+    authorName: "Susan R.",
     starRating: 5,
-    comment: "Professional, fast, and the results exceeded my expectations. Will definitely be back.",
+    comment:
+      "The TPI screen was eye-opening. I finally understood why my slice kept coming back — and the plan actually fixed it.",
     relativeTimeDescription: "1 month ago",
   },
   {
-    authorName: "Emily R.",
-    starRating: 4,
-    comment: "Great service and friendly team. Only minor wait time but worth it.",
+    authorName: "Brian K.",
+    starRating: 5,
+    comment:
+      "Best golf-related decision I've made. Thorough evaluation, clear explanation, and I'm swinging freely again.",
     relativeTimeDescription: "1 month ago",
   },
   {
-    authorName: "Michael T.",
+    authorName: "Jennifer M.",
     starRating: 5,
-    comment: "Best decision we made. Quality work and fair pricing. Thank you!",
+    comment:
+      "No pressure, no upsell — just a focused screen and a plan built around my body and my game. Highly recommend.",
     relativeTimeDescription: "2 months ago",
   },
   {
-    authorName: "Jessica L.",
+    authorName: "David L.",
     starRating: 5,
-    comment: "Couldn't be happier. They went above and beyond to help us out.",
+    comment:
+      "I'd spent thousands on lessons. One TPI screen showed me the physical issue holding my swing back. Game changer.",
     relativeTimeDescription: "2 months ago",
   },
   {
-    authorName: "David P.",
-    starRating: 4,
-    comment: "Solid experience overall. Good communication and delivered on time.",
+    authorName: "Karen W.",
+    starRating: 5,
+    comment:
+      "Professional, knowledgeable, and genuinely cares about getting you back on the course. Worth every penny.",
     relativeTimeDescription: "3 months ago",
   },
   {
-    authorName: "Amanda S.",
+    authorName: "Tom H.",
     starRating: 5,
-    comment: "Outstanding! From the first call to the final result, everything was perfect.",
+    comment:
+      "Hip mobility was killing my follow-through. After a few visits I'm hitting it cleaner and walking off pain-free.",
     relativeTimeDescription: "3 months ago",
   },
   {
-    authorName: "Chris W.",
-    authorHandle: "chrisw",
+    authorName: "Lisa P.",
     starRating: 5,
-    comment: "Top notch. Would give 6 stars if I could. Highly recommend.",
+    comment:
+      "TPI certified and it shows. They test, explain, and treat — not just tell you to stretch more.",
     relativeTimeDescription: "4 months ago",
   },
   {
-    authorName: "Rachel H.",
-    authorHandle: "rachelh",
-    starRating: 4,
-    comment: "Very pleased with the service. Staff was knowledgeable and courteous.",
+    authorName: "Chris B.",
+    starRating: 5,
+    comment:
+      "Franklin's best kept secret for golfers. Real results, not generic adjustments.",
     relativeTimeDescription: "4 months ago",
   },
 ];

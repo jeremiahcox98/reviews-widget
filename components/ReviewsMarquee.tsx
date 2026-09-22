@@ -77,8 +77,8 @@ export function ReviewsMarquee({
 
   if (withText.length === 0) {
     return (
-      <div className="flex min-h-[200px] items-center justify-center text-white/60">
-        No reviews yet.
+      <div className="embed-empty flex min-h-[200px] items-center justify-center text-white/60">
+        Reviews coming soon.
       </div>
     );
   }

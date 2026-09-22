@@ -19,6 +19,17 @@ body {
   color: #e9eef2;
 }
 
+.embed-page h1,
+.embed-page h2,
+.embed-page h3,
+.embed-page h4,
+.embed-page .embed-title,
+.embed-page .embed-eyebrow,
+.embed-page .embed-trust,
+.embed-page .embed-review-author {
+  font-family: var(--font-archivo), "Archivo", system-ui, sans-serif;
+}
+
 .embed-head {
   max-width: 760px;
   margin: 0 auto;
@@ -94,6 +105,20 @@ body {
   overflow: hidden;
   max-width: 100%;
   padding-bottom: clamp(40px, 6vw, 56px);
+  font-family: var(--font-hanken), "Hanken Grotesk", system-ui, sans-serif;
+}
+
+.embed-marquee .logoloop {
+  --logoloop-fadeColor: #0a1520;
+}
+
+.embed-marquee .logoloop__item {
+  font-size: 16px;
+  line-height: normal;
+}
+
+.embed-marquee button {
+  font-family: inherit;
 }
 
 .embed-review-card {
@@ -133,4 +158,16 @@ body {
 .embed-loading,
 .embed-empty {
   font-family: var(--font-hanken), "Hanken Grotesk", system-ui, sans-serif;
+}
+
+.embed-footnote {
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 5vw, 32px) clamp(32px, 5vw, 48px);
+  text-align: center;
+  font-family: var(--font-hanken), "Hanken Grotesk", system-ui, sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.48);
 }

@@ -16,24 +16,24 @@ export function ReviewsSection() {
     fetch("/api/reviews/cached")
       .then(async (res) => {
         const data = await res.json().catch(() => ({}));
+        const list = Array.isArray(data.reviews) ? data.reviews : [];
+
+        // Cache-first: if we have reviews, always show them — never surface
+        // background sync / OAuth errors to visitors.
+        if (list.length > 0) {
+          setReviews(list);
+          setError(null);
+          return;
+        }
+
         if (!res.ok) {
-          const msg = data.error || `Request failed (${res.status})`;
-          setError(msg);
+          setError(data.error || `Request failed (${res.status})`);
           setReviews(dummyReviews);
           return;
         }
-        if (data.reviews && Array.isArray(data.reviews)) {
-          if (data.reviews.length > 0) {
-            setReviews(data.reviews);
-            setError(data.syncError || null);
-          } else {
-            setError("No reviews yet for this account.");
-            setReviews(dummyReviews);
-          }
-        } else {
-          setError(data.error || "Unexpected response from API.");
-          setReviews(dummyReviews);
-        }
+
+        setError("No reviews yet for this account.");
+        setReviews(dummyReviews);
       })
       .catch(() => {
         setError("Could not load reviews. Try again in a moment.");

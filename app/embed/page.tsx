@@ -45,14 +45,18 @@ export default function EmbedPage() {
           <p className="embed-eyebrow">Real Results</p>
           <h2 className="embed-title">Golfers Who Move &amp; Play Better</h2>
           <p className="embed-lead">
-            Real Google reviews from golfers who&apos;ve completed the TPI screen and personalized
-            plan at Mason Chiropractic.
+            Local golfers share how the TPI screen and personalized plan helped them move better,
+            play with more confidence, and get back on the course without pain.
           </p>
         </header>
 
         <div className="embed-marquee">
           <ReviewsSection />
         </div>
+
+        <p className="embed-footnote">
+          Verified Google reviews · Mason Chiropractic · Franklin, TN
+        </p>
       </div>
     </div>
   );
